@@ -2049,7 +2049,7 @@ function showFinalScreen() {
   actions.appendChild(resetBtn);
 
   const githubLink = document.createElement('a');
-  githubLink.href = 'https://github.com/dak/RedstoneCourierProtocol';
+  githubLink.href = 'https://github.com/WulfTheGod/TheRedstoneCourierProtocol';
   githubLink.target = '_blank';
   githubLink.className = 'final-action-btn tertiary';
   githubLink.textContent = 'VIEW PROJECT ON GITHUB';
