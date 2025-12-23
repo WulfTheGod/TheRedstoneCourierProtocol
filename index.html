@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REDSTONE COURIER PROTOCOL</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- EXPIRED BANNER (hidden by default) -->
+  <div id="expired-banner" class="expired-banner hidden">
+    <div class="expired-line">AUTHORIZATION WINDOW CLOSED</div>
+    <div class="expired-line secondary">DELIVERY PROCEEDED WITHOUT OPERATOR CLEARANCE</div>
+    <div class="expired-line tertiary">COURIER PATH: LOCKED</div>
+  </div>
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-container">
+      <div class="login-header">
+        <div class="login-icon"></div>
+        <h1>REDSTONE COURIER PROTOCOL</h1>
+        <div class="login-subtitle">SECURE TERMINAL ACCESS</div>
+      </div>
+      <div class="login-form">
+        <div class="input-group">
+          <label for="login-operator">OPERATOR ID</label>
+          <input type="text" id="login-operator" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="input-group">
+          <label for="login-session">SESSION KEY</label>
+          <input type="text" id="login-session" autocomplete="off" spellcheck="false">
+        </div>
+        <button id="login-submit" class="submit-btn">AUTHENTICATE</button>
+        <div id="login-response" class="system-response"></div>
+        <div id="login-hints" class="hint-stack"></div>
+      </div>
+      <div class="login-footer">
+        <span class="footer-text">AUTHORIZATION CLOSES IN: </span>
+        <span id="login-timer" class="timer-value">--:--:--:--</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN DASHBOARD -->
+  <div id="dashboard" class="dashboard hidden">
+    <!-- TOP BAR -->
+    <header class="top-bar">
+      <div class="top-bar-left">
+        <span class="label">OPERATOR:</span>
+        <span id="operator-display" class="value"></span>
+      </div>
+      <div class="top-bar-center">
+        <span class="label">AUTHORIZATION CLOSES IN:</span>
+        <span id="main-timer" class="timer-value">--:--:--:--</span>
+      </div>
+      <div class="top-bar-right">
+        <div id="status-orb" class="status-orb green" title="System Status"></div>
+        <button id="music-toggle" class="music-toggle" title="Toggle Ambient Music">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+          <span id="music-status" class="music-status">OFF</span>
+        </button>
+        <button id="admin-gear" class="admin-gear" title="System Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-content">
+      <!-- LEFT SIDEBAR: PHASES -->
+      <aside class="sidebar-left">
+        <div class="sidebar-header">PROTOCOL PHASES</div>
+        <nav id="phase-nav" class="phase-nav">
+          <!-- Phases populated by JS -->
+        </nav>
+      </aside>
+
+      <!-- CENTER: PHASE CONTENT -->
+      <main id="phase-content" class="phase-content">
+        <!-- Phase content populated by JS -->
+      </main>
+
+      <!-- RIGHT SIDEBAR: TOOLS & LOG -->
+      <aside class="sidebar-right">
+        <div class="sidebar-section">
+          <div class="sidebar-header">MISSION LOG</div>
+          <div id="mission-log" class="mission-log">
+            <!-- Log entries populated by JS -->
+          </div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-header">WORKBENCH TOOLS</div>
+          <div id="workbench-tools" class="workbench-tools">
+            <!-- Tools populated by JS -->
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- TOOL MODAL -->
+  <div id="tool-modal" class="modal hidden">
+    <div class="modal-content tool-modal-content">
+      <div class="modal-header">
+        <span id="tool-modal-title"></span>
+        <button class="modal-close" onclick="closeToolModal()">&times;</button>
+      </div>
+      <div id="tool-modal-body" class="modal-body">
+        <!-- Tool content populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- DECRYPT ANIMATION MODAL -->
+  <div id="decrypt-modal" class="modal hidden">
+    <div class="modal-content decrypt-modal-content">
+      <div id="decrypt-sequence" class="decrypt-sequence">
+        <!-- Decrypt animation populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MISSION COMPLETE MODAL -->
+  <div id="complete-modal" class="modal hidden">
+    <div class="modal-content complete-modal-content">
+      <div id="complete-sequence" class="complete-sequence">
+        <!-- Mission complete content populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN RESET MODAL -->
+  <div id="admin-modal" class="modal hidden">
+    <div class="modal-content admin-modal-content">
+      <div class="modal-header">
+        <span>SYSTEM ADMINISTRATION</span>
+        <button class="modal-close" onclick="closeAdminModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="admin-warning">This action will reset all progress and return the system to initial state.</p>
+        <div class="input-group">
+          <label for="admin-key">CONFIRM SESSION KEY</label>
+          <input type="text" id="admin-key" autocomplete="off">
+        </div>
+        <button id="admin-reset-btn" class="submit-btn danger">RESET ALL PROGRESS</button>
+        <div id="admin-response" class="system-response"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HIDDEN YOUTUBE AUDIO PLAYER -->
+  <div id="youtube-player-container" class="youtube-hidden">
+    <iframe id="youtube-player"
+      width="1" height="1"
+      src=""
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
