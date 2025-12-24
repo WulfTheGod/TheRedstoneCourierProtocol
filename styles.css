@@ -834,30 +834,6 @@ body::after {
   box-shadow: 0 0 10px var(--redstone-dark);
 }
 
-/* Vault Key Display */
-.vault-key-display {
-  margin-top: var(--spacing-lg);
-  padding: var(--spacing-md);
-  background: var(--emerald-dark);
-  border: var(--border-width) solid var(--emerald);
-  border-radius: 2px;
-  text-align: center;
-}
-
-.vault-key-label {
-  font-size: 0.65rem;
-  color: var(--emerald);
-  letter-spacing: 1px;
-  margin-bottom: var(--spacing-sm);
-}
-
-.vault-key-value {
-  font-size: 1.1rem;
-  color: var(--text-primary);
-  font-weight: 700;
-  letter-spacing: 2px;
-}
-
 /* Mission Log */
 .mission-log {
   flex: 1;

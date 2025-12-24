@@ -30,7 +30,7 @@ Three encoded fragments are hidden throughout the Minecraft world:
 Each location unlocks after solving the previous, creating a breadcrumb trail through the world.
 
 ### Phase 6: Final Assembly
-With all three shards decoded, the courier must determine the correct assembly order to reconstruct the complete tracking number.
+With all three shards decoded, the courier verifies the assembled fragments and initiates the final decryption sequence to reveal the tracking number.
 
 ## Features
 
