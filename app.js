@@ -1852,9 +1852,10 @@ function showMissionComplete() {
   const header = document.createElement('div');
   header.className = 'complete-header';
 
-  const icon = document.createElement('div');
+  const icon = document.createElement('img');
   icon.className = 'complete-icon';
-  icon.textContent = '\u2713';
+  icon.src = 'assets/logo-128.png';
+  icon.alt = 'Redstone Courier Protocol';
   header.appendChild(icon);
 
   const title = document.createElement('div');
@@ -1943,6 +1944,13 @@ function showFinalScreen() {
 
   const container = document.createElement('div');
   container.className = 'final-container';
+
+  // Logo
+  const logo = document.createElement('img');
+  logo.className = 'final-logo';
+  logo.src = 'assets/logo-256.png';
+  logo.alt = 'Redstone Courier Protocol';
+  container.appendChild(logo);
 
   // Header
   const header = document.createElement('div');

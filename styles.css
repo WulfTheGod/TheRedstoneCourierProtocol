@@ -259,12 +259,13 @@ body::after {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-lg);
-  gap: 4px;
+  gap: 0;
 }
 
 .login-container {
   width: 100%;
   max-width: 340px;
+  margin-top: -24px;
 }
 
 .login-header {
@@ -272,8 +273,8 @@ body::after {
 }
 
 .login-logo {
-  width: 280px;
-  height: 280px;
+  width: 336px;
+  height: 336px;
   margin: 0 auto;
   /* Subtle depth - soft ambient shadow, no glow */
   filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.6));
@@ -615,6 +616,14 @@ body::after {
 .top-bar .timer-value {
   font-size: 0.9rem;
   font-weight: 700;
+}
+
+/* Top Bar Logo */
+.top-bar-logo {
+  width: 36px;
+  height: 36px;
+  margin-right: var(--spacing-sm);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
 
 /* Enlarged Operator Display */
@@ -1273,17 +1282,11 @@ body::after {
 }
 
 .complete-icon {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   margin: 0 auto var(--spacing-lg);
-  background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-dim) 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  box-shadow: 0 0 40px var(--emerald-dark);
-  animation: pulse-glow 2s infinite;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
+  animation: logo-breathe 6s ease-in-out infinite;
 }
 
 @keyframes pulse-glow {
@@ -1486,6 +1489,14 @@ body::after {
   width: 90%;
   text-align: center;
   padding: var(--spacing-xl);
+}
+
+.final-logo {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto var(--spacing-lg);
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.6));
+  animation: logo-breathe 6s ease-in-out infinite;
 }
 
 .final-header {
