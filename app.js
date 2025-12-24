@@ -2140,6 +2140,13 @@ function showDashboard() {
   if (getTimeRemaining().expired) {
     handleExpiry();
   }
+
+  // Auto-start music after login (user has interacted, so autoplay works)
+  setTimeout(function() {
+    if (!musicPlaying) {
+      toggleMusic();
+    }
+  }, 500);
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -2251,14 +2258,6 @@ function initMusicToggle() {
   if (toggleBtn) {
     toggleBtn.addEventListener('click', toggleMusic);
   }
-
-  // Auto-start music on page load
-  // Note: Browsers may block autoplay until user interacts with page
-  setTimeout(function() {
-    if (!musicPlaying) {
-      toggleMusic();
-    }
-  }, 500);
 }
 
 function toggleMusic() {
