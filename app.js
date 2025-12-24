@@ -35,7 +35,6 @@ const DEFAULT_STATE = {
   phase3Checkpoints: { A: false, B: false, C: false },
   phase5Decoded: { A: '', B: '', C: '' },
   phase5Verified: { A: false, B: false, C: false },
-  vaultKeyRevealed: false,
   decryptComplete: false
 };
 
