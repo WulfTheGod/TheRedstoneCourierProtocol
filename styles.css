@@ -92,7 +92,7 @@ body {
   position: relative;
 }
 
-/* Background Image - Very Dark/Subtle */
+/* Background Image - Subtle but visible */
 .bg-logo {
   position: fixed;
   top: 0;
@@ -102,7 +102,7 @@ body {
   pointer-events: none;
   z-index: 0;
   background: url('assets/bg-1920.jpg') center center / cover no-repeat;
-  opacity: 0.06;
+  opacity: 0.12;
 }
 
 @media (max-width: 1280px) {
@@ -117,29 +117,29 @@ body {
   }
 }
 
-/* Animated Redstone Dust Stars - Tiny particles floating like stars */
+/* Breathing Redstone Dust Particles - Tiny dots that pulse */
 body::before {
   content: '';
   position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.12;
-  /* Tiny redstone dust - like glowing stars */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='7' y='6' width='2' height='1' fill='%23ff3333'/%3E%3Crect x='7' y='9' width='2' height='1' fill='%23ff3333'/%3E%3Crect x='6' y='7' width='1' height='2' fill='%23ff3333'/%3E%3Crect x='9' y='7' width='1' height='2' fill='%23ff3333'/%3E%3Crect x='7' y='7' width='2' height='2' fill='%23ff5555'/%3E%3C/svg%3E");
-  background-size: 24px 24px;
-  animation: redstone-stars 80s linear infinite;
+  opacity: 0.04;
+  /* Tiny 1px redstone dots */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect x='3' y='3' width='2' height='2' fill='%23ff3333'/%3E%3C/svg%3E");
+  background-size: 12px 12px;
+  animation: redstone-breathe 4s ease-in-out infinite;
 }
 
-@keyframes redstone-stars {
-  0% {
-    transform: translate(0, 0) rotate(0deg);
+@keyframes redstone-breathe {
+  0%, 100% {
+    opacity: 0.03;
   }
-  100% {
-    transform: translate(-50%, -50%) rotate(5deg);
+  50% {
+    opacity: 0.08;
   }
 }
 
@@ -252,12 +252,12 @@ body::after {
 }
 
 .login-logo {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto var(--spacing-md);
-  border-radius: 8px;
-  box-shadow: 0 0 30px var(--redstone-dim);
-  image-rendering: pixelated;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 0 60px var(--redstone-dim), 0 0 100px rgba(255, 51, 51, 0.2);
+  image-rendering: auto;
 }
 
 .login-header h1 {
@@ -273,6 +273,10 @@ body::after {
   font-size: 0.75rem;
   color: var(--text-muted);
   letter-spacing: 2px;
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: var(--border-width) solid var(--border-color);
 }
 
 .login-form {
