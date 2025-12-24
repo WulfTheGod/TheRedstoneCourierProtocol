@@ -45,7 +45,7 @@ const CONFIG = {
   // ═══════════════════════════════════════════════════════════════
 
   // Link to download the Minecraft world (Google Drive, Dropbox, etc.)
-  worldDownloadLink: "https://example.com/redstone-courier-world.zip",
+  worldDownloadLink: "https://www.dropbox.com/scl/fi/6uehui8y35q8zd6b1tnno/TheRedstoneCourierProtocol.zip?rlkey=ms0phys19jvuq07er6hfx1mkm&st=u0bxtz3f&dl=1",
 
   // The binding code visible at spawn in the Minecraft world
   // Player must find this in-game and enter it here
