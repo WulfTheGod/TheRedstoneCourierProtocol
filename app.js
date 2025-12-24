@@ -26,8 +26,7 @@ const DEFAULT_STATE = {
     phase4: 0,
     phase5A: 0,
     phase5B: 0,
-    phase5C: 0,
-    phase6: 0
+    phase5C: 0
   },
   attempts: {},
   timestamps: {},
@@ -232,13 +231,8 @@ const HINTS = {
   ],
   phase5C: [
     'Count like a crafter.',
-    'Grouping and stacks matter.',
+    'Empty slots mean zero.',
     'Decoded shard C must be: ' + CONFIG.shardCDecoded
-  ],
-  phase6: [
-    'It is not random.',
-    'One shard clearly belongs at the start.',
-    'Choose option C.'
   ]
 };
 
@@ -711,8 +705,8 @@ const PHASES = [
   {
     id: 6,
     name: 'COURIER VISION',
-    briefing: 'You have all three shards. The throne room marked the assembly order. Only the correct sequence will unlock the final transmission.',
-    objective: 'Assemble the shards in the correct order and select the ordering rule.'
+    briefing: 'You have all three shards decoded. The fragments are ready for final assembly. Initiate the decryption sequence to reveal the courier path.',
+    objective: 'Verify your assembled fragments and initiate the final decryption.'
   }
 ];
 
@@ -1622,118 +1616,109 @@ function renderPhase6Form(container, isReadOnly) {
 
   const instructText = document.createElement('p');
   instructText.className = 'briefing-text';
-  instructText.textContent = 'Your decoded shards from Phase 5 are shown below. The tracking number is formed by combining them in a specific order. Look for clues in the vault about which shard comes first, which is the middle, and which is last.';
+  instructText.textContent = 'Your decoded shards from Phase 5 are assembled below. Verify the fragments are correct, then initiate the final decryption sequence to reveal the courier path.';
   instructions.appendChild(instructText);
 
   container.appendChild(instructions);
 
-  // Shard values section
-  const shardsSection = document.createElement('div');
-  shardsSection.className = 'checkpoint-container';
+  // Assembled tracking number preview
+  const assemblySection = document.createElement('div');
+  assemblySection.className = 'checkpoint-container';
 
-  const shardsHeader = document.createElement('div');
-  shardsHeader.className = 'checkpoint-header';
-  shardsHeader.textContent = 'YOUR DECODED SHARDS';
-  shardsSection.appendChild(shardsHeader);
+  const assemblyHeader = document.createElement('div');
+  assemblyHeader.className = 'checkpoint-header';
+  assemblyHeader.textContent = 'ASSEMBLED FRAGMENTS';
+  assemblySection.appendChild(assemblyHeader);
 
-  const shardsRow = document.createElement('div');
-  shardsRow.style.display = 'grid';
-  shardsRow.style.gap = 'var(--spacing-md)';
-  shardsRow.style.gridTemplateColumns = 'repeat(auto-fit, minmax(150px, 1fr))';
+  const fragmentsDisplay = document.createElement('div');
+  fragmentsDisplay.style.display = 'flex';
+  fragmentsDisplay.style.justifyContent = 'center';
+  fragmentsDisplay.style.alignItems = 'center';
+  fragmentsDisplay.style.gap = 'var(--spacing-sm)';
+  fragmentsDisplay.style.padding = 'var(--spacing-lg)';
+  fragmentsDisplay.style.flexWrap = 'wrap';
 
-  ['A', 'B', 'C'].forEach(function(shard) {
-    const group = document.createElement('div');
-    group.className = 'input-group';
+  ['A', 'B', 'C'].forEach(function(shard, index) {
+    const fragment = document.createElement('div');
+    fragment.style.textAlign = 'center';
 
-    const label = document.createElement('label');
+    const label = document.createElement('div');
+    label.style.fontSize = '0.65rem';
+    label.style.color = 'var(--text-muted)';
+    label.style.marginBottom = '4px';
     label.textContent = 'SHARD ' + shard;
-    group.appendChild(label);
+    fragment.appendChild(label);
 
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.id = 'phase6-shard' + shard;
-    input.placeholder = 'Shard ' + shard;
-    input.value = state.phase5Decoded[shard] || '';
-    input.disabled = isReadOnly;
-    input.style.textAlign = 'center';
-    input.style.fontWeight = '600';
-    input.style.letterSpacing = '1px';
-    group.appendChild(input);
+    const value = document.createElement('div');
+    value.style.fontFamily = 'var(--font-mono)';
+    value.style.fontSize = '1.2rem';
+    value.style.fontWeight = '700';
+    value.style.color = 'var(--gold)';
+    value.style.letterSpacing = '2px';
+    value.textContent = state.phase5Decoded[shard] || '???';
+    fragment.appendChild(value);
 
-    shardsRow.appendChild(group);
+    fragmentsDisplay.appendChild(fragment);
+
+    if (index < 2) {
+      const plus = document.createElement('div');
+      plus.style.color = 'var(--text-muted)';
+      plus.style.fontSize = '1.5rem';
+      plus.style.padding = '0 var(--spacing-sm)';
+      plus.textContent = '+';
+      fragmentsDisplay.appendChild(plus);
+    }
   });
 
-  shardsSection.appendChild(shardsRow);
-  container.appendChild(shardsSection);
+  assemblySection.appendChild(fragmentsDisplay);
 
-  // Ordering question
-  const orderSection = document.createElement('div');
-  orderSection.className = 'checkpoint-container';
-  orderSection.style.marginTop = 'var(--spacing-lg)';
+  // Show combined result
+  const combinedLabel = document.createElement('div');
+  combinedLabel.style.textAlign = 'center';
+  combinedLabel.style.marginTop = 'var(--spacing-md)';
+  combinedLabel.style.paddingTop = 'var(--spacing-md)';
+  combinedLabel.style.borderTop = '1px solid var(--slate-light)';
 
-  const orderHeader = document.createElement('div');
-  orderHeader.className = 'checkpoint-header';
-  orderHeader.textContent = 'ASSEMBLY ORDER';
-  orderSection.appendChild(orderHeader);
+  const combinedTitle = document.createElement('div');
+  combinedTitle.style.fontSize = '0.7rem';
+  combinedTitle.style.color = 'var(--text-muted)';
+  combinedTitle.style.marginBottom = 'var(--spacing-xs)';
+  combinedTitle.textContent = 'COMBINED PAYLOAD';
+  combinedLabel.appendChild(combinedTitle);
 
-  const orderQ = document.createElement('p');
-  orderQ.style.fontSize = '0.85rem';
-  orderQ.style.color = 'var(--text-secondary)';
-  orderQ.style.marginBottom = 'var(--spacing-md)';
-  orderQ.textContent = 'The vault contains a clue about how to arrange the shards. What ordering rule did you find?';
-  orderSection.appendChild(orderQ);
+  const combinedValue = document.createElement('div');
+  combinedValue.style.fontFamily = 'var(--font-mono)';
+  combinedValue.style.fontSize = '1rem';
+  combinedValue.style.color = 'var(--amethyst)';
+  combinedValue.style.letterSpacing = '2px';
+  const a = state.phase5Decoded.A || '???';
+  const b = state.phase5Decoded.B || '???';
+  const c = state.phase5Decoded.C || '???';
+  combinedValue.textContent = a + b + c;
+  combinedLabel.appendChild(combinedValue);
 
-  const orderOptions = [
-    { letter: 'A', text: 'Alphabetical (A, B, C)' },
-    { letter: 'B', text: 'First seen (order found)' },
-    { letter: 'C', text: 'Prefix, core, suffix' },
-    { letter: 'D', text: 'Random' }
-  ];
-
-  orderSection.appendChild(createChoiceGroup('phase8', orderOptions, isReadOnly));
-  container.appendChild(orderSection);
+  assemblySection.appendChild(combinedLabel);
+  container.appendChild(assemblySection);
 
   container.appendChild(createSubmitButton('INITIATE DECRYPTION', submitPhase6, isReadOnly, 'success'));
   container.appendChild(createResponseDiv('phase6-response'));
-  container.appendChild(createHintsDiv('phase6-hints'));
-  renderHints('phase6-hints', 'phase8');
 }
 
 function submitPhase6() {
   const responseEl = document.getElementById('phase6-response');
 
-  const shardA = ((document.getElementById('phase6-shardA') || {}).value || '').trim();
-  const shardB = ((document.getElementById('phase6-shardB') || {}).value || '').trim();
-  const shardC = ((document.getElementById('phase6-shardC') || {}).value || '').trim();
-  const ordering = getSelectedChoice('phase8');
+  // Verify all shards were decoded in Phase 5
+  const shardA = state.phase5Decoded.A || '';
+  const shardB = state.phase5Decoded.B || '';
+  const shardC = state.phase5Decoded.C || '';
 
   if (!shardA || !shardB || !shardC) {
-    responseEl.textContent = 'All shard values are required.';
-    responseEl.className = 'system-response warning';
-    return;
-  }
-
-  if (!ordering) {
-    responseEl.textContent = 'Ordering rule selection required.';
-    responseEl.className = 'system-response warning';
+    responseEl.textContent = 'ERROR. Not all shards have been decoded. Return to Phase 5.';
+    responseEl.className = 'system-response error';
     return;
   }
 
   addLogEntry('Phase 6 final assembly', 'attempt');
-
-  if (shardA !== CONFIG.shardADecoded || shardB !== CONFIG.shardBDecoded || shardC !== CONFIG.shardCDecoded) {
-    responseEl.textContent = 'REJECTED. Shard values do not match verified fragments.';
-    responseEl.className = 'system-response error';
-    return;
-  }
-
-  if (ordering.toUpperCase() !== CONFIG.phase8OrderingAnswer.toUpperCase()) {
-    responseEl.textContent = 'REJECTED. Ordering rule incorrect.';
-    responseEl.className = 'system-response error';
-    getHint('phase8');
-    renderHints('phase6-hints', 'phase8');
-    return;
-  }
 
   responseEl.textContent = 'ACCEPTED. Initiating decryption sequence...';
   responseEl.className = 'system-response success';
