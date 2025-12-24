@@ -4,12 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>REDSTONE COURIER PROTOCOL</title>
+
+  <!-- Favicon & Icons -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a0c0f">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Redstone Courier Protocol">
+  <meta property="og:description" content="Secure Terminal Access">
+  <meta property="og:image" href="assets/logo-512.png">
+  <meta property="og:type" content="website">
+
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Background Logo -->
+  <div class="bg-logo"></div>
+
   <!-- EXPIRED BANNER (hidden by default) -->
   <div id="expired-banner" class="expired-banner hidden">
     <div class="expired-line">AUTHORIZATION WINDOW CLOSED</div>
@@ -21,7 +39,7 @@
   <div id="login-screen" class="login-screen">
     <div class="login-container">
       <div class="login-header">
-        <div class="login-icon"></div>
+        <img src="assets/logo-128.png" alt="Redstone Courier Protocol" class="login-logo">
         <h1>REDSTONE COURIER PROTOCOL</h1>
         <div class="login-subtitle">SECURE TERMINAL ACCESS</div>
       </div>
