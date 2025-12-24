@@ -27,6 +27,9 @@
 <body>
   <!-- Background Logo -->
   <div class="bg-logo"></div>
+  <!-- Redstone particle layers for organic breathing -->
+  <div class="redstone-layer-2"></div>
+  <div class="redstone-layer-3"></div>
 
   <!-- EXPIRED BANNER (hidden by default) -->
   <div id="expired-banner" class="expired-banner hidden">
@@ -37,10 +40,12 @@
 
   <!-- LOGIN SCREEN -->
   <div id="login-screen" class="login-screen">
+    <!-- Logo floats independently -->
+    <div class="login-header">
+      <img src="assets/logo-512.png" alt="Redstone Courier Protocol" class="login-logo">
+    </div>
+    <!-- Form is subordinate -->
     <div class="login-container">
-      <div class="login-header">
-        <img src="assets/logo-512.png" alt="Redstone Courier Protocol" class="login-logo">
-      </div>
       <div class="login-form">
         <div class="login-subtitle">SECURE TERMINAL ACCESS</div>
         <div class="input-group">
@@ -54,10 +59,10 @@
         <button id="login-submit" class="submit-btn">AUTHENTICATE</button>
         <div id="login-response" class="system-response"></div>
         <div id="login-hints" class="hint-stack"></div>
-      </div>
-      <div class="login-footer">
-        <span class="footer-text">AUTHORIZATION CLOSES IN: </span>
-        <span id="login-timer" class="timer-value">--:--:--:--</span>
+        <div class="login-footer">
+          <span class="footer-text">AUTHORIZATION CLOSES IN</span>
+          <span id="login-timer" class="timer-value">--:--:--:--</span>
+        </div>
       </div>
     </div>
   </div>

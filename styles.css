@@ -117,8 +117,10 @@ body {
   }
 }
 
-/* Breathing Redstone Dust Particles - Tiny dots that pulse */
-body::before {
+/* Breathing Redstone Dust Particles - Organic wave effect */
+body::before,
+.redstone-layer-2,
+.redstone-layer-3 {
   content: '';
   position: fixed;
   top: 0;
@@ -127,20 +129,49 @@ body::before {
   bottom: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.04;
-  /* Tiny 1px redstone dots */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect x='3' y='3' width='2' height='2' fill='%23ff3333'/%3E%3C/svg%3E");
   background-size: 12px 12px;
-  animation: redstone-breathe 4s ease-in-out infinite;
 }
 
-@keyframes redstone-breathe {
-  0%, 100% {
-    opacity: 0.03;
-  }
-  50% {
-    opacity: 0.08;
-  }
+body::before {
+  animation: breathe-wave-1 8s ease-in-out infinite;
+}
+
+.redstone-layer-2 {
+  background-position: 4px 4px;
+  animation: breathe-wave-2 11s ease-in-out infinite;
+  animation-delay: -3s;
+}
+
+.redstone-layer-3 {
+  background-position: 2px 6px;
+  animation: breathe-wave-3 14s ease-in-out infinite;
+  animation-delay: -7s;
+}
+
+@keyframes breathe-wave-1 {
+  0%, 100% { opacity: 0.02; }
+  23% { opacity: 0.06; }
+  41% { opacity: 0.03; }
+  68% { opacity: 0.07; }
+  84% { opacity: 0.04; }
+}
+
+@keyframes breathe-wave-2 {
+  0%, 100% { opacity: 0.03; }
+  19% { opacity: 0.05; }
+  37% { opacity: 0.02; }
+  58% { opacity: 0.06; }
+  79% { opacity: 0.03; }
+}
+
+@keyframes breathe-wave-3 {
+  0%, 100% { opacity: 0.025; }
+  15% { opacity: 0.04; }
+  33% { opacity: 0.02; }
+  52% { opacity: 0.055; }
+  71% { opacity: 0.03; }
+  88% { opacity: 0.045; }
 }
 
 /* Scanline overlay */
@@ -224,40 +255,45 @@ body::after {
 .login-screen {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-md);
-  background:
-    radial-gradient(ellipse at center, var(--slate-dark) 0%, var(--slate-darkest) 70%),
-    var(--slate-darkest);
+  padding: var(--spacing-lg);
+  gap: var(--spacing-md);
 }
 
 .login-container {
   width: 100%;
-  max-width: 420px;
-  background: var(--slate-darker);
-  border: var(--border-width) solid var(--border-color);
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow:
-    0 0 40px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  max-width: 340px;
 }
 
 .login-header {
-  padding: var(--spacing-xl) var(--spacing-lg);
   text-align: center;
-  border-bottom: var(--border-width) solid var(--border-color);
-  background: linear-gradient(180deg, var(--slate-dark) 0%, var(--slate-darker) 100%);
+  margin-bottom: var(--spacing-xl);
 }
 
 .login-logo {
-  width: 220px;
-  height: 220px;
+  width: 280px;
+  height: 280px;
   margin: 0 auto;
-  border-radius: 12px;
-  box-shadow: 0 0 60px var(--redstone-dim), 0 0 100px rgba(255, 51, 51, 0.2);
+  /* Subtle depth - soft ambient shadow, no glow */
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.6));
   image-rendering: auto;
+  /* Crisp edges for authority */
+  image-rendering: -webkit-optimize-contrast;
+  /* Subtle breathing - alive but restrained */
+  animation: logo-breathe 6s ease-in-out infinite;
+}
+
+@keyframes logo-breathe {
+  0%, 100% {
+    opacity: 0.92;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
 }
 
 .login-header h1 {
@@ -270,44 +306,45 @@ body::after {
 }
 
 .login-subtitle {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  letter-spacing: 2px;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  letter-spacing: 3px;
   text-align: center;
   margin-bottom: var(--spacing-lg);
-  padding-bottom: var(--spacing-md);
-  border-bottom: var(--border-width) solid var(--border-color);
+  text-transform: uppercase;
 }
 
 .login-form {
   padding: var(--spacing-lg);
+  background: rgba(18, 21, 26, 0.7);
+  border: 1px solid rgba(54, 61, 74, 0.5);
+  border-radius: 4px;
+  backdrop-filter: blur(8px);
 }
 
 .login-footer {
-  padding: var(--spacing-md) var(--spacing-lg);
-  background: var(--slate-dark);
-  border-top: var(--border-width) solid var(--border-color);
+  padding: var(--spacing-md) 0;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: var(--spacing-md);
 }
 
 .login-footer .footer-text {
   display: block;
-  font-size: 0.65rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 0.2em;
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  letter-spacing: 0.15em;
   margin-bottom: var(--spacing-xs);
 }
 
 .login-footer .timer-value {
   display: block;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--gold);
-  text-shadow: 0 0 15px var(--gold-dim);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gold-dim);
   letter-spacing: 2px;
 }
 
