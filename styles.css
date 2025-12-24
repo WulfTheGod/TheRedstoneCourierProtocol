@@ -259,7 +259,7 @@ body::after {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-lg);
-  gap: var(--spacing-md);
+  gap: 4px;
 }
 
 .login-container {
@@ -269,7 +269,6 @@ body::after {
 
 .login-header {
   text-align: center;
-  margin-bottom: var(--spacing-xl);
 }
 
 .login-logo {
